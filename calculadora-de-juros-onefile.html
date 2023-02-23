@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>Calculadora de Juros</title>
+</head>
+<body>
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        body{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(22, 22, 22);
+            color: white
+        }
+
+        h1{
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #info{
+            width: 70%;
+        }
+
+        .info-container{
+            margin: 40px 0;
+            display: flex;
+        }
+
+        .sinfo{
+            width: 70px;
+        }
+
+        label{
+            width: auto;
+            margin-right: 15px;
+        }
+
+        #button-container{
+            margin: 20px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        #button-container *{
+            margin: 0 10px;
+        }
+
+        #calcular-container{
+            display: flex;
+            width: auto;
+        }
+
+        #calcular-container *{
+            margin: 5px 10px;
+        }
+
+        #btcalcular{
+            width: 100px;
+            padding: 1px 20px;
+        }
+
+        #sbutton{
+            width: 150px;
+        }
+
+        #btlimpar{
+            padding: 1px 20px;
+            margin: 0 10px;
+            width: 100px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #container2{
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+            width: 80%;
+        }
+
+        @media screen and (max-width : 768px){
+            #container2{ 
+                flex-direction: column; 
+                margin-top: 0;
+            }
+        }
+
+        .container-result{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 255, 255, 0.705);
+            width: 100%;
+            height: 50px;
+            margin: 10px 10px; 
+            max-width: 1000px;
+            border-radius: 7px;   
+
+        }
+
+        .container-result span{
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            font-size: medium;
+        }
+
+        .hide{
+            visibility: hidden;
+        }
+    </style>
+    <h1>Calculadora de Juros</h1>
+    <div id="info">
+        <div class="info-container">
+            <label for="capital">Capital</label>
+            <input type="number" name="Capital" id="capital">
+        </div>
+        <div class="info-container">
+            <label for="tempo">Tempo</label>
+            <input type="number" name="Tempo" id="tempo">
+            <select class="sinfo" id="stempo">
+                <option value="meses">Meses</option>
+                <option value="anos">Anos</option>
+            </select>
+        </div>
+        <div class="info-container">
+            <label for="taxa">Taxa</label>
+            <input type="number" name="Taxa" id="taxa">
+            <select class="sinfo" id="staxa">
+                <option value="am">% Mês</option>
+                <option value="aa">% Ano</option>
+            </select>
+        </div>
+        <div id="button-container" >
+            <button id="btlimpar">Limpar</button>
+            <button id="btcalcular">Calcular</button>   
+            <select id="sbutton">
+                <option value="jc">Juros Compostos</option>
+                <option value="js">Juros Simples</option>
+            </select>
+        </div>
+    </div>
+    <div id="container2" class="hide">
+        <div class="container-result" id="div-juros"><span>Juros: <br><span id="j"></span></span></div>
+        <div class="container-result" id="div-total"><span>Total: <br><span id="m"></span></span></div>
+    </div>
+    <script>
+        var capital = document.querySelector('#capital');
+        var tempo = document.querySelector('#tempo');
+        var taxa = document.querySelector('#taxa');
+        var btcalcular = document.querySelector('#btcalcular');
+        var tipo = document.querySelector('#sbutton');
+        var stempo = document.querySelector('#stempo');
+        var staxa = document.querySelector('#staxa');
+        var container = document.querySelector('#container2');
+        var btlimpar = document.querySelector('#btlimpar');
+
+
+        btcalcular.addEventListener('click', function(){
+            if (capital.value != '' && taxa.value != '' && tempo.value != '') {
+                if (stempo.value === 'Anos') {
+                    var tempof = tempo.value * 12;
+                } else {
+                    var tempof = tempo.value;
+                }
+
+                if (staxa.value === 'aa') {
+                    var taxaf = taxa.value / 12;
+                } else {
+                    var taxaf = taxa.value;
+                }
+
+                if (tipo.value === 'jc') {
+                    var montante = capital.value * Math.pow(1+(taxaf/100), tempof);
+                    var juros = montante - capital.value;
+
+                    m.innerHTML = `R$ ${montante.toLocaleString('pt-br', {minimumFractionDigits: 2})}`;
+                    j.innerHTML = `R$ ${juros.toLocaleString('pt-br', {minimumFractionDigits: 2})}`;
+                    
+                    container.classList.remove('hide');
+                } else {
+                    var juros = capital.value * (taxaf/100) * tempof;
+                    var montante = parseFloat(capital.value) + (capital.value * (taxaf/100) * tempof);
+                
+                    m.innerHTML = `R$ ${montante.toLocaleString('pt-br', {minimumFractionDigits: 2})}`;
+                    j.innerHTML = `R$ ${juros.toLocaleString('pt-br', {minimumFractionDigits: 2})}`;
+
+                    container.classList.remove('hide'); 
+                }
+            } else {
+                alert("Preencha todos os campos corretamente!")
+            }
+        });
+
+        btlimpar.addEventListener('click', function(){
+            capital.value = '';
+            taxa.value = '';  
+            tempo.value = '';
+
+            container.classList.add('hide');
+        });
+    </script>
+</body>
+</html>

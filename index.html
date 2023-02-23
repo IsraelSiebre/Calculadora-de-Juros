@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>Calculadora de Juros</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Calculadora de Juros</h1>
+    <div id="info">
+        <div class="info-container">
+            <label for="capital">Capital</label>
+            <input type="number" name="Capital" id="capital">
+        </div>
+        <div class="info-container">
+            <label for="tempo">Tempo</label>
+            <input type="number" name="Tempo" id="tempo">
+            <select class="sinfo" id="stempo">
+                <option value="meses">Meses</option>
+                <option value="anos">Anos</option>
+            </select>
+        </div>
+        <div class="info-container">
+            <label for="taxa">Taxa</label>
+            <input type="number" name="Taxa" id="taxa">
+            <select class="sinfo" id="staxa">
+                <option value="am">% Mês</option>
+                <option value="aa">% Ano</option>
+            </select>
+        </div>
+        <div id="button-container" >
+            <button id="btlimpar">Limpar</button>
+            <button id="btcalcular">Calcular</button>   
+            <select id="sbutton">
+                <option value="jc">Juros Compostos</option>
+                <option value="js">Juros Simples</option>
+            </select>
+        </div>
+    </div>
+    <div id="container2" class="hide">
+        <div class="container-result" id="div-juros"><span>Juros: <br><span id="j"></span></span></div>
+        <div class="container-result" id="div-total"><span>Total: <br><span id="m"></span></span></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
