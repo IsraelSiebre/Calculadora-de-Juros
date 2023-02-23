@@ -11,7 +11,7 @@ var btlimpar = document.querySelector('#btlimpar');
 
 btcalcular.addEventListener('click', function(){
     if (capital.value != '' && taxa.value != '' && tempo.value != '') {
-        if (stempo.value === 'Anos') {
+        if (stempo.value === 'anos') {
             var tempof = tempo.value * 12;
         } else {
             var tempof = tempo.value;
